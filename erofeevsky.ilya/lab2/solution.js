@@ -9,12 +9,15 @@ export function getZodiacSign(day, month) {
   ) {
     return 'Некорректная дата';
   }
+
   if (month === 2 && day > 29) {
     return 'Некорректная дата';
   }
+
   if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
     return 'Некорректная дата';
   }
+
   if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
     return 'Водолей';
   } else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) {
