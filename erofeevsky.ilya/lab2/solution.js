@@ -1,4 +1,4 @@
-export function getZodiacSign(day, month) {
+export function getZodiacSign(month, day) {
   if (
     !Number.isInteger(day) ||
     !Number.isInteger(month) ||

@@ -53,15 +53,15 @@
 ```javascript
 import {getZodiacSign} from './solution.js';
 
-console.log(getZodiacSign(25, 8)); // Ожидаем: "Дева"
-console.log(getZodiacSign(25, 5)); // Ожидаем: "Близнецы"
-console.log(getZodiacSign(30, 2)); // Ошибка: "Некорректная дата"
-console.log(getZodiacSign(99, 1)); // Ошибка: "Некорректная дата"
-console.log(getZodiacSign(24, 13)); // Ошибка: "Некорректная дата"
-console.log(getZodiacSign(0, 1)); // Ошибка: "Некорректная дата"
-console.log(getZodiacSign(-1, 12)); // Ошибка: "Некорректная дата"
+console.log(getZodiacSign(8, 25)); // Ожидаем: "Дева"
+console.log(getZodiacSign(5, 25)); // Ожидаем: "Близнецы"
+console.log(getZodiacSign(2, 30)); // Ошибка: "Некорректная дата"
+console.log(getZodiacSign(1, 99)); // Ошибка: "Некорректная дата"
+console.log(getZodiacSign(13, 24)); // Ошибка: "Некорректная дата"
+console.log(getZodiacSign(1, 0)); // Ошибка: "Некорректная дата"
+console.log(getZodiacSign(12, -1)); // Ошибка: "Некорректная дата"
 console.log(getZodiacSign('abc', 1)); // Ошибка: "Некорректная дата"
 // Граничная даты: "Козерог" или "Водолей"?
-console.log(getZodiacSign(19, 1));
-console.log(getZodiacSign(20, 1));
+console.log(getZodiacSign(1, 19));
+console.log(getZodiacSign(1, 20));
 ```
