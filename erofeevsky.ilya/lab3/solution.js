@@ -3,7 +3,7 @@ export function sortByFrequency(arr) {
   for (const num of arr) {
     countMap[num] = (countMap[num] || 0) + 1;
   }
-  return arr.sort((a, b) => {
+  return [...arr].sort((a, b) => {
     if (countMap[b] === countMap[a]) {
       return a - b;
     }
