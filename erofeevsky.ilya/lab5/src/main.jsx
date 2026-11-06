@@ -6,37 +6,18 @@ import MessageInput from './components/MessageInput.jsx';
 
 const STORAGE_KEY = 'messages';
 
-const INITIAL_MESSAGES = [
-  {
-    id: 1,
-    author: 'Система',
-    text: 'Добро пожаловать в чат!',
-    time: new Date().toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    }),
-  },
-];
-
 function App() {
   const [username, setUsername] = useState(() => {
-    return localStorage.getItem('chat-name') || 'Пользователь';
+    return localStorage.getItem('chat_name') || 'Пользователь';
   });
 
   const [messages, setMessages] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      }
-      return INITIAL_MESSAGES;
+      return saved ? JSON.parse(saved) : [];
     } catch (err) {
       console.error('Ошибка чтения из localStorage:', err);
-      return INITIAL_MESSAGES;
+      return [];
     }
   });
 
@@ -49,14 +30,10 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-    localStorage.setItem('chat-name', username);
+    localStorage.setItem('chat_name', username);
   }, [username]);
 
   const handleSendMessage = (text) => {
-    if (!text.trim()) {
-      return;
-    }
-
     const newMessage = {
       id: Date.now(),
       author: username.trim() || 'Пользователь',
@@ -67,7 +44,6 @@ function App() {
         second: '2-digit',
       }),
     };
-
     setMessages((prev) => [...prev, newMessage]);
   };
 

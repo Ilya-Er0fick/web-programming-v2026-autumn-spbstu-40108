@@ -18,13 +18,13 @@ export default function MessageInput({onSendMessage}) {
     <form className="message-input-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        data-testid="chat-input"
+        data-testid="chat-message"
         placeholder="Введите сообщение..."
         value={text}
         onChange={(e) => setText(e.target.value)}
         autoComplete="off"
       />
-      <button type="submit" data-testid="chat-submit">
+      <button type="submit" data-testid="chat-send">
         Отправить
       </button>
     </form>
