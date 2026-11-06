@@ -4,7 +4,7 @@ import './styles.css';
 import MessageList from './components/MessageList.jsx';
 import MessageInput from './components/MessageInput.jsx';
 
-const STORAGE_KEY = 'messages';
+const STORAGE_KEY = 'chat_messages';
 
 function App() {
   const [username, setUsername] = useState(() => {
