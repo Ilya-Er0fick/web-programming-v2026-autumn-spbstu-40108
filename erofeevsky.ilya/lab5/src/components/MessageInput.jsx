@@ -24,7 +24,7 @@ export default function MessageInput({onSendMessage}) {
         onChange={(e) => setText(e.target.value)}
         autoComplete="off"
       />
-      <button type="submit" data-testid="chat-submit" disabled={!text.trim()}>
+      <button type="submit" data-testid="chat-submit">
         Отправить
       </button>
     </form>

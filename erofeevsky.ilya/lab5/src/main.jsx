@@ -4,20 +4,39 @@ import './styles.css';
 import MessageList from './components/MessageList.jsx';
 import MessageInput from './components/MessageInput.jsx';
 
-const STORAGE_KEY = 'chat_lab5_messages';
+const STORAGE_KEY = 'messages';
+
+const INITIAL_MESSAGES = [
+  {
+    id: 1,
+    author: 'Система',
+    text: 'Добро пожаловать в чат!',
+    time: new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    }),
+  },
+];
 
 function App() {
   const [username, setUsername] = useState(() => {
-    return localStorage.getItem('chat_username') || 'Пользователь';
+    return localStorage.getItem('chat-name') || 'Пользователь';
   });
 
   const [messages, setMessages] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : [];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+      return INITIAL_MESSAGES;
     } catch (err) {
       console.error('Ошибка чтения из localStorage:', err);
-      return [];
+      return INITIAL_MESSAGES;
     }
   });
 
@@ -30,20 +49,25 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-    localStorage.setItem('chat_username', username);
+    localStorage.setItem('chat-name', username);
   }, [username]);
 
   const handleSendMessage = (text) => {
+    if (!text.trim()) {
+      return;
+    }
+
     const newMessage = {
       id: Date.now(),
-      author: username.trim() || 'Аноним',
-      text,
+      author: username.trim() || 'Пользователь',
+      text: text.trim(),
       time: new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
       }),
     };
+
     setMessages((prev) => [...prev, newMessage]);
   };
 
@@ -68,6 +92,7 @@ function App() {
         <button
           className="clear-btn"
           data-testid="chat-clear"
+          type="button"
           onClick={handleClearChat}
         >
           Очистить чат
