@@ -6,7 +6,9 @@ export default function MessageInput({onSendMessage}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const trimmed = text.trim();
-    if (!trimmed) {return;}
+    if (!trimmed) {
+      return;
+    }
 
     onSendMessage(trimmed);
     setText('');

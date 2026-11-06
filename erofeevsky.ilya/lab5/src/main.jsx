@@ -83,6 +83,7 @@ function App() {
           <label htmlFor="user-name">Ваш никнейм:</label>
           <input
             id="user-name"
+            data-testid="chat-name"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
