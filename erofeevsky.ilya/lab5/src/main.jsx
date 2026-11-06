@@ -8,12 +8,8 @@ const STORAGE_KEY = 'chat_lab5_messages';
 
 function App() {
   const [username, setUsername] = useState(() => {
-    return sessionStorage.getItem('chat_username') || 'Пользователь';
+    return localStorage.getItem('chat_username') || 'Пользователь';
   });
-
-  useEffect(() => {
-    sessionStorage.setItem('chat_username', username);
-  }, [username]);
 
   const [messages, setMessages] = useState(() => {
     try {
@@ -37,35 +33,15 @@ function App() {
     localStorage.setItem('chat_username', username);
   }, [username]);
 
-  useEffect(() => {
-    const handleStorageChange = (event) => {
-      if (event.key === STORAGE_KEY) {
-        try {
-          const updatedMessages = event.newValue
-            ? JSON.parse(event.newValue)
-            : [];
-          setMessages(updatedMessages);
-        } catch (err) {
-          console.error('Ошибка обновления из другой вкладки:', err);
-        }
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
   const handleSendMessage = (text) => {
     const newMessage = {
       id: Date.now(),
-      author: username || 'Аноним',
+      author: username.trim() || 'Аноним',
       text,
       time: new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
       }),
     };
     setMessages((prev) => [...prev, newMessage]);
@@ -89,7 +65,11 @@ function App() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <button className="clear-btn" onClick={handleClearChat}>
+        <button
+          className="clear-btn"
+          data-testid="chat-clear"
+          onClick={handleClearChat}
+        >
           Очистить чат
         </button>
       </header>
